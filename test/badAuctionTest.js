@@ -33,6 +33,7 @@ contract('BadAuctionTest', function(accounts) {
 			async function() {
 				await notPoisoned.bid(args._smallAmount);
 				let cleanBalance = await notPoisoned.getBalance.call();
+
 				assert.isBelow(cleanBalance.valueOf(), args._bigAmount,
 					"some balance has been spent");
 				let highestBid = await bad.getHighestBid.call();
@@ -50,6 +51,7 @@ contract('BadAuctionTest', function(accounts) {
 					"some balance has been spent");
 				let anotherNotPoisoned = await NotPoisoned
 					.new({value: args._bigAmount});
+
 				await anotherNotPoisoned.setTarget(bad.address);
 				await anotherNotPoisoned.bid(args._smallAmount);
 				cleanBalance = await notPoisoned.getBalance.call();

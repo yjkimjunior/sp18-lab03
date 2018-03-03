@@ -55,7 +55,7 @@ contract('GoodAuctionTest', function(accounts) {
 				await anotherNotPoisoned.bid(args._smallAmount);
 				cleanBalance = await notPoisoned.getBalance.call();
 				let anotherCleanBalance = await anotherNotPoisoned.getBalance.call();
-				/* Optimized for Truffle, for now 
+				/* Optimized for Truffle, for now
 				 * Should be `.equal` but value is not sent back currently
 				 */
 				assert.isBelow(anotherCleanBalance.valueOf(), args._bigAmount,
@@ -188,9 +188,11 @@ contract('GoodAuctionTest', function(accounts) {
 		it("The good auction should not let address who is not highest bidder decrement the standing bid",
 			async function() {
 				await notPoisoned.bid(args._smallAmount);
+
 				await poisoned.reduceBid();
+
 				let highestBid = await good.getHighestBid.call();
-				assert.equal(args._smallAmount, highestBid.valueOf());
+				assert.equal(highestBid.valueOf(), args._smallAmount);
 		});
 		it("The good auction should reduce the bid when highest bidder call reduceBid",
 			async function() {
